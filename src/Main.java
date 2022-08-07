@@ -10,15 +10,15 @@ class Main {
     public static boolean on = true;
 
     public static void printTask() {
-        System.out.print("Активные задачи: \n");
+        System.out.print("Active Tasks: \n");
         for (var i = 0; i < activeTasks.size(); i++){
             System.out.print((i + 1) + ". " + activeTasks.get(i) + "\n");
         }
-        System.out.print("\nВыполненные задачи: \n");
+        System.out.print("\nCompleted Tasks: \n");
         for (var i = 0; i < completeTasks.size(); i++){
             System.out.print((i + 1) + ". " + completeTasks.get(i) + "\n");
         }
-        System.out.print("\nПроваленные задачи: \n");
+        System.out.print("\nMissed Tasks: \n");
         for (var i = 0; i < missedTasks.size(); i++){
             System.out.print((i + 1) + ". " + missedTasks.get(i) + "\n");
         }
@@ -26,26 +26,26 @@ class Main {
     }
 
     public static void addTask() {
-        System.out.print("Введите новую задачу: ");
+        System.out.print("Input new task: ");
         task = input.nextLine();
         activeTasks.add(task);
-        System.out.print("Задача " + task + " добавлена!\n\n");
+        System.out.print("Task " + task + " added!\n\n");
     }
 
     public static void toAnotherList(int index){
         String taskNumber;
         int taskNum = 0;
-        System.out.print("Активные задачи: \n");
+        System.out.print("Active Tasks: \n");
         for (var i = 0; i < activeTasks.size(); i++){
             System.out.print((i + 1) + ". " + activeTasks.get(i) + "\n");
         }
-        System.out.print("Введите номер " + ((index == 1) ? "выполенной" : "проваленной") + " задачи (0 - отмена действия): ");
+        System.out.print("Input number of " + ((index == 1) ? "completed" : "missed") + " task (0 - cancel operation): ");
 
         try {
             taskNumber = input.nextLine();
             taskNum = Integer.parseInt(taskNumber);
         } catch (Exception exception) {
-            System.out.println("\nДля ввода элемента используются только цифры! Операция отменена\n");
+            System.out.println("\nFor input element used only numbers! Operation canceled\n");
         }
         if (0 < taskNum && taskNum <= activeTasks.size()){
             taskNum--;
@@ -56,11 +56,11 @@ class Main {
                 missedTasks.add(task);
             }
             activeTasks.remove(taskNum);
-            System.out.print("\nЗадача " + task + " перемещена в " + ((index == 1) ? "выполенные" : "проваленные") + " задачи!\n\n");
+            System.out.print("\nTask " + task + " remove to " + ((index == 1) ? "completed" : "missed") + " tasks!\n\n");
         } else if (taskNum == 0) {
-            System.out.print("Возврат в меню...\n\n");
+            System.out.print("Back to menu...\n\n");
         } else {
-            System.out.print("Данной задачи нет в списке активных задач\n Возврат в меню...\n\n");
+            System.out.print("This task is not in Active Tasks\n Back to menu...\n\n");
         }
     }
 
@@ -74,13 +74,13 @@ class Main {
 
     public static void printMenu() {
         System.out.print("""              
-                Выбери действие:
-                1. Вывести список задач
-                2. Добавить задачу
-                3. Отметить задачу как выполненную
-                4. Отметить задачу как проваленную
-                0. Очистить список и выйти из программы
-                Поле для ответа:\s""");
+                Choose operation:
+                1. Print Tasks List
+                2. Add Task
+                3. Remove Task to Completed
+                4. Remove Task to Missed
+                0. Clear list and exit program
+                Answer:\s""");
     }
 
     public static void menu() {
@@ -92,9 +92,9 @@ class Main {
             case "0" -> {
                 printTask();
                 on = false;
-                System.out.print("Завершение работы...");
+                System.out.print("Shutting down...");
             }
-            default -> System.out.print("В меню нет такого варианта ответа!!!\n\n");
+            default -> System.out.print("Menu hasn't that item!!!\n\n");
         }
     }
 
