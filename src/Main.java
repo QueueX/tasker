@@ -10,19 +10,31 @@ class Main {
             missedTasks = new ArrayList<>();
     static boolean on = true, on1 = false;
 
-    static void printTask() {
+    static void printActiveTasks(){
         System.out.print("Active Tasks: \n");
         for (var i = 0; i < activeTasks.size(); i++){
             System.out.print((i + 1) + ". " + activeTasks.get(i) + "\n");
         }
+    }
+
+    static void printCompleteTasks(){
         System.out.print("\nCompleted Tasks: \n");
         for (var i = 0; i < completeTasks.size(); i++){
             System.out.print((i + 1) + ". " + completeTasks.get(i) + "\n");
         }
+    }
+
+    static void printMissedTasks(){
         System.out.print("\nMissed Tasks: \n");
         for (var i = 0; i < missedTasks.size(); i++){
             System.out.print((i + 1) + ". " + missedTasks.get(i) + "\n");
         }
+    }
+
+    static void printTask() {
+        printActiveTasks();
+        printCompleteTasks();
+        printMissedTasks();
         System.out.print("\n");
     }
 
@@ -36,12 +48,8 @@ class Main {
     static void toAnotherList(int index){
         String taskNumber;
         int taskNum = 0;
-        System.out.print("Active Tasks: \n");
-        for (var i = 0; i < activeTasks.size(); i++){
-            System.out.print((i + 1) + ". " + activeTasks.get(i) + "\n");
-        }
+        printActiveTasks();
         System.out.print("Input number of " + ((index == 1) ? "completed" : "missed") + " task (0 - cancel operation): ");
-
         try {
             taskNumber = input.nextLine();
             taskNum = Integer.parseInt(taskNumber);
