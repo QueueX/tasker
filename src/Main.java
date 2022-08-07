@@ -3,13 +3,14 @@ import java.util.Scanner;
 
 
 class Main {
-    public static Scanner input = new Scanner(System.in, "Cp866");
-    public static String task, choose;
-    public static ArrayList<String> activeTasks = new ArrayList<>(), completeTasks = new ArrayList<>(),
-            missedTasks = new ArrayList<>();
-    public static boolean on = true;
+    static Scanner input = new Scanner(System.in, "Cp866");
+    static String task, choose, chooseList;
 
-    public static void printTask() {
+    static ArrayList<String> activeTasks = new ArrayList<>(), completeTasks = new ArrayList<>(),
+            missedTasks = new ArrayList<>();
+    static boolean on = true, on1 = false;
+
+    static void printTask() {
         System.out.print("Active Tasks: \n");
         for (var i = 0; i < activeTasks.size(); i++){
             System.out.print((i + 1) + ". " + activeTasks.get(i) + "\n");
@@ -25,14 +26,14 @@ class Main {
         System.out.print("\n");
     }
 
-    public static void addTask() {
+    static void addTask() {
         System.out.print("Input new task: ");
         task = input.nextLine();
         activeTasks.add(task);
         System.out.print("Task " + task + " added!\n\n");
     }
 
-    public static void toAnotherList(int index){
+    static void toAnotherList(int index){
         String taskNumber;
         int taskNum = 0;
         System.out.print("Active Tasks: \n");
@@ -64,31 +65,35 @@ class Main {
         }
     }
 
-    public static void completeTask() {
+    static void completeTask() {
         toAnotherList(1);
     }
 
-    public static void missTask() {
+    static void missTask() {
         toAnotherList(0);
     }
 
-    public static void printMenu() {
+    static void printMenu() {
         System.out.print("""              
                 Choose operation:
+                
                 1. Print Tasks List
                 2. Add Task
                 3. Remove Task to Completed
                 4. Remove Task to Missed
+                5. Clear Lists
+                
                 0. Clear list and exit program
                 Answer:\s""");
     }
 
-    public static void menu() {
+    static void menu() {
         switch (choose) {
             case "1" -> printTask();
             case "2" -> addTask();
             case "3" -> completeTask();
             case "4" -> missTask();
+            case "5" -> listClear();
             case "0" -> {
                 printTask();
                 on = false;
@@ -100,6 +105,53 @@ class Main {
         }
     }
 
+    static void printListMenu(){
+        System.out.print("""
+                Choose list:
+                
+                1. All lists
+                2. Active Tasks list
+                3. Complete Tasks list
+                4. Missed Tasks list
+                
+                0. Back to menu
+                Answer:\s""");
+    }
+
+    static void listMenu(){
+        switch (chooseList) {
+            case "1" -> clearList(0);
+            case "2" -> clearList(1);
+            case "3" -> clearList(2);
+            case "4" -> clearList(3);
+            case "0" -> {on1 = false;
+                System.out.print("Back to menu... \n\n");}
+            default -> System.out.print("Menu hasn't that item!!!\n\n");
+        }
+    }
+
+    static void clearList(int index){
+        switch (index) {
+            case 0 -> {activeTasks.clear();
+            completeTasks.clear();
+            missedTasks.clear();}
+            case 1 -> activeTasks.clear();
+            case 2 -> completeTasks.clear();
+            case 3 -> missedTasks.clear();
+        }
+        System.out.print("List cleared!!!\n\n");
+        on1 = false;
+    }
+
+    static void listClear(){
+        on1 = true;
+        while (on1){
+            printListMenu();
+            chooseList = input.nextLine();
+            System.out.println();
+            listMenu();
+        }
+    }
 
     public static void main(String[] args){
         while (on) {
