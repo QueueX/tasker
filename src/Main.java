@@ -92,14 +92,16 @@ class Main {
             case "0" -> {
                 printTask();
                 on = false;
-                System.out.print("Shutting down...");
+                System.out.print("Shutting down...\n\n");
+                System.out.print("Press any button to exit program...");
+                input.nextLine();
             }
             default -> System.out.print("Menu hasn't that item!!!\n\n");
         }
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
         while (on) {
             printMenu();
             choose = input.nextLine();
