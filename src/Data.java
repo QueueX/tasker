@@ -5,8 +5,6 @@ import java.util.Scanner;
 
 public class Data {
 
-    Date date = new Date();
-
     Scanner input = new Scanner(System.in, "Cp866");
     ArrayList<String> activeTasks = new ArrayList<>(), completedTasks = new ArrayList<>(),
             missedTasks = new ArrayList<>();
@@ -41,12 +39,14 @@ public class Data {
     }
 
     String fileName(){
+        Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("HHmmss-ddMMyy");
         String name = "TaskExport" + formatter.format(date) + ".txt";
         return name;
     }
 
     String date(){
+        Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         return formatter.format(date);
     }
