@@ -1,14 +1,17 @@
-import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 
-class Main {
+class Data{
     static Scanner input = new Scanner(System.in, "Cp866");
-    static String task, choose, chooseList;
-
     static ArrayList<String> activeTasks = new ArrayList<>(), completeTasks = new ArrayList<>(),
             missedTasks = new ArrayList<>();
-    static boolean on = true, on1 = false;
+}
+
+
+class ListTools extends Data{
+
+    static String task;
 
     static void printActiveTasks(){
         System.out.print("Active Tasks: \n");
@@ -81,6 +84,27 @@ class Main {
         toAnotherList(0);
     }
 
+    static void clearList(int index){
+        switch (index) {
+            case 0 -> {activeTasks.clear();
+                completeTasks.clear();
+                missedTasks.clear();}
+            case 1 -> activeTasks.clear();
+            case 2 -> completeTasks.clear();
+            case 3 -> missedTasks.clear();
+        }
+        System.out.print("List cleared!!!\n\n");
+    }
+
+}
+
+
+class Menu extends ListTools{
+
+    static boolean on = false, on1 = false;
+
+    static String choose, chooseList;
+
     static void printMenu() {
         System.out.print("""              
                 Choose operation:
@@ -101,7 +125,7 @@ class Main {
             case "2" -> addTask();
             case "3" -> completeTask();
             case "4" -> missTask();
-            case "5" -> listClear();
+            case "5" -> {clearMenu(); on1 = false;}
             case "0" -> {
                 printTask();
                 on = false;
@@ -138,20 +162,17 @@ class Main {
         }
     }
 
-    static void clearList(int index){
-        switch (index) {
-            case 0 -> {activeTasks.clear();
-            completeTasks.clear();
-            missedTasks.clear();}
-            case 1 -> activeTasks.clear();
-            case 2 -> completeTasks.clear();
-            case 3 -> missedTasks.clear();
+    static void start(){
+        on = true;
+        while (on) {
+            printMenu();
+            choose = input.nextLine();
+            System.out.println();
+            menu();
         }
-        System.out.print("List cleared!!!\n\n");
-        on1 = false;
     }
 
-    static void listClear(){
+    static void clearMenu(){
         on1 = true;
         while (on1){
             printListMenu();
@@ -161,12 +182,11 @@ class Main {
         }
     }
 
-    public static void main(String[] args){
-        while (on) {
-            printMenu();
-            choose = input.nextLine();
-            System.out.println();
-            menu();
-        }
+}
+
+
+class Main extends Menu{
+    public static void main(String[] args) {
+        start();
     }
 }
