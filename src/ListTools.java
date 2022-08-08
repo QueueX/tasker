@@ -1,62 +1,63 @@
-public class ListTools extends Data {
+public class ListTools{
 
-    static String task;
+    String task;
+    Data data = new Data();
 
-    static void printActiveTasks() {
+    void printActiveTasks() {
         System.out.print("Active Tasks: \n");
-        for (var i = 0; i < activeTasks.size(); i++) {
-            System.out.print((i + 1) + ". " + activeTasks.get(i) + "\n");
+        for (var i = 0; i < data.activeTasks.size(); i++) {
+            System.out.print((i + 1) + ". " + data.activeTasks.get(i) + "\n");
         }
     }
 
-    static void printCompleteTasks() {
+    void printCompleteTasks() {
         System.out.print("\nCompleted Tasks: \n");
-        for (var i = 0; i < completeTasks.size(); i++) {
-            System.out.print((i + 1) + ". " + completeTasks.get(i) + "\n");
+        for (var i = 0; i < data.completeTasks.size(); i++) {
+            System.out.print((i + 1) + ". " + data.completeTasks.get(i) + "\n");
         }
     }
 
-    static void printMissedTasks() {
+    void printMissedTasks() {
         System.out.print("\nMissed Tasks: \n");
-        for (var i = 0; i < missedTasks.size(); i++) {
-            System.out.print((i + 1) + ". " + missedTasks.get(i) + "\n");
+        for (var i = 0; i < data.missedTasks.size(); i++) {
+            System.out.print((i + 1) + ". " + data.missedTasks.get(i) + "\n");
         }
     }
 
-    static void printTask() {
+    void printTask() {
         printActiveTasks();
         printCompleteTasks();
         printMissedTasks();
         System.out.print("\n");
     }
 
-    static void addTask() {
+    void addTask() {
         System.out.print("Input new task: ");
-        task = input.nextLine();
-        activeTasks.add(task);
+        task = data.input.nextLine();
+        data.activeTasks.add(task);
         System.out.print("Task " + task + " added!\n\n");
     }
 
-    static void toAnotherList(int index) {
+    void toAnotherList(int index) {
         String taskNumber;
         int taskNum = 0;
         printActiveTasks();
         System.out.print("Input number of " + ((index == 1) ? "completed" : "missed") + " task (0 - cancel operation): ");
         try {
-            taskNumber = input.nextLine();
+            taskNumber = data.input.nextLine();
             taskNum = Integer.parseInt(taskNumber);
         } catch (Exception exception) {
             System.out.println("\nFor input element used only numbers! Operation canceled\n");
         }
-        if (0 < taskNum && taskNum <= activeTasks.size()) {
+        if (0 < taskNum && taskNum <= data.activeTasks.size()) {
             taskNum--;
-            task = activeTasks.get(taskNum);
+            task = data.activeTasks.get(taskNum);
             if (index == 1) {
-                completeTasks.add(task);
+                data.completeTasks.add(task);
             } else {
-                missedTasks.add(task);
+                data.missedTasks.add(task);
             }
-            activeTasks.remove(taskNum);
+            data.activeTasks.remove(taskNum);
             System.out.print("\nTask " + task + " remove to " + ((index == 1) ? "completed" : "missed") + " tasks!\n\n");
         } else if (taskNum == 0) {
             System.out.print("Back to menu...\n\n");
@@ -65,24 +66,24 @@ public class ListTools extends Data {
         }
     }
 
-    static void completeTask() {
+    void completeTask() {
         toAnotherList(1);
     }
 
-    static void missTask() {
+    void missTask() {
         toAnotherList(0);
     }
 
-    static void clearList(int index) {
+    void clearList(int index) {
         switch (index) {
             case 0 -> {
-                activeTasks.clear();
-                completeTasks.clear();
-                missedTasks.clear();
+                data.activeTasks.clear();
+                data.completeTasks.clear();
+                data.missedTasks.clear();
             }
-            case 1 -> activeTasks.clear();
-            case 2 -> completeTasks.clear();
-            case 3 -> missedTasks.clear();
+            case 1 -> data.activeTasks.clear();
+            case 2 -> data.completeTasks.clear();
+            case 3 -> data.missedTasks.clear();
         }
         System.out.print("List cleared!!!\n\n");
     }

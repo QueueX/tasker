@@ -1,10 +1,14 @@
-public class Menu extends ListTools {
+public class Menu{
 
-    static boolean on = false, on1 = false;
+    Data data = new Data();
 
-    static String choose, chooseList;
+    boolean on = false, on1 = false;
 
-    static void printMenu() {
+    String choose, chooseList;
+
+    ListTools tool = new ListTools();
+
+    void printMenu() {
         System.out.print("""              
                 Choose operation:
                                 
@@ -18,28 +22,28 @@ public class Menu extends ListTools {
                 Answer:\s""");
     }
 
-    static void menu() {
+    void menu() {
         switch (choose) {
-            case "1" -> printTask();
-            case "2" -> addTask();
-            case "3" -> completeTask();
-            case "4" -> missTask();
+            case "1" -> tool.printTask();
+            case "2" -> tool.addTask();
+            case "3" -> tool.completeTask();
+            case "4" -> tool.missTask();
             case "5" -> {
                 clearMenu();
                 on1 = false;
             }
             case "0" -> {
-                printTask();
+                tool.printTask();
                 on = false;
                 System.out.print("Shutting down...\n\n");
                 System.out.print("Press any button to exit program...");
-                input.nextLine();
+                data.input.nextLine();
             }
             default -> System.out.print("Menu hasn't that item!!!\n\n");
         }
     }
 
-    static void printListMenu() {
+    void printListMenu() {
         System.out.print("""
                 Choose list:
                                 
@@ -52,12 +56,12 @@ public class Menu extends ListTools {
                 Answer:\s""");
     }
 
-    static void listMenu() {
+    void listMenu() {
         switch (chooseList) {
-            case "1" -> clearList(0);
-            case "2" -> clearList(1);
-            case "3" -> clearList(2);
-            case "4" -> clearList(3);
+            case "1" -> tool.clearList(0);
+            case "2" -> tool.clearList(1);
+            case "3" -> tool.clearList(2);
+            case "4" -> tool.clearList(3);
             case "0" -> {
                 on1 = false;
                 System.out.print("Back to menu... \n\n");
@@ -66,21 +70,21 @@ public class Menu extends ListTools {
         }
     }
 
-    static void start() {
+    void start() {
         on = true;
         while (on) {
             printMenu();
-            choose = input.nextLine();
+            choose = data.input.nextLine();
             System.out.println();
             menu();
         }
     }
 
-    static void clearMenu() {
+    void clearMenu() {
         on1 = true;
         while (on1) {
             printListMenu();
-            chooseList = input.nextLine();
+            chooseList = data.input.nextLine();
             System.out.println();
             listMenu();
         }
