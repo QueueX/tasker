@@ -60,14 +60,11 @@ public class Menu{
 
     void listMenu() {
         switch (chooseList) {
-            case "1" -> tool.clearList(0);
-            case "2" -> tool.clearList(1);
-            case "3" -> tool.clearList(2);
-            case "4" -> tool.clearList(3);
-            case "0" -> {
-                on1 = false;
-                System.out.print("Back to menu... \n\n");
-            }
+            case "1" -> {on1 = false; tool.clearList(0);}
+            case "2" -> {on1 = false; tool.clearList(1);}
+            case "3" -> {on1 = false; tool.clearList(2);}
+            case "4" -> {on1 = false; tool.clearList(3);}
+            case "0" -> {on1 = false; System.out.print("Back to menu... \n\n");}
             default -> System.out.print("Menu hasn't that item!!!\n\n");
         }
     }
