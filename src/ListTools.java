@@ -1,34 +1,25 @@
+import java.io.*;
+
+
 public class ListTools{
 
     String task;
     Data data = new Data();
 
     void printActiveTasks() {
-        System.out.print("Active Tasks: \n");
-        for (var i = 0; i < data.activeTasks.size(); i++) {
-            System.out.print((i + 1) + ". " + data.activeTasks.get(i) + "\n");
-        }
+        System.out.print(data.activeTasksList());
     }
 
     void printCompleteTasks() {
-        System.out.print("\nCompleted Tasks: \n");
-        for (var i = 0; i < data.completeTasks.size(); i++) {
-            System.out.print((i + 1) + ". " + data.completeTasks.get(i) + "\n");
-        }
+        System.out.print(data.completedTasksList());
     }
 
     void printMissedTasks() {
-        System.out.print("\nMissed Tasks: \n");
-        for (var i = 0; i < data.missedTasks.size(); i++) {
-            System.out.print((i + 1) + ". " + data.missedTasks.get(i) + "\n");
-        }
+        System.out.print(data.missedTasksList());
     }
 
     void printTask() {
-        printActiveTasks();
-        printCompleteTasks();
-        printMissedTasks();
-        System.out.print("\n");
+        System.out.print(data.fullTasksList());
     }
 
     void addTask() {
@@ -53,7 +44,7 @@ public class ListTools{
             taskNum--;
             task = data.activeTasks.get(taskNum);
             if (index == 1) {
-                data.completeTasks.add(task);
+                data.completedTasks.add(task);
             } else {
                 data.missedTasks.add(task);
             }
@@ -78,14 +69,30 @@ public class ListTools{
         switch (index) {
             case 0 -> {
                 data.activeTasks.clear();
-                data.completeTasks.clear();
+                data.completedTasks.clear();
                 data.missedTasks.clear();
             }
             case 1 -> data.activeTasks.clear();
-            case 2 -> data.completeTasks.clear();
+            case 2 -> data.completedTasks.clear();
             case 3 -> data.missedTasks.clear();
         }
         System.out.print("List cleared!!!\n\n");
+    }
+
+    void export(){
+        try {
+            OutputStream f = new FileOutputStream(data.fileName());
+            OutputStreamWriter writer = new OutputStreamWriter(f);
+            BufferedWriter out = new BufferedWriter(writer);
+
+            out.write(data.date() + "\n\n");
+            out.write(data.fullTasksList());
+            out.flush();
+            System.out.print("File export successfully\n\n");
+
+        } catch (IOException exception){
+            System.out.print(exception);
+        }
     }
 
 }

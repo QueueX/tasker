@@ -16,7 +16,8 @@ public class Menu{
                 2. Add Task
                 3. Remove Task to Completed
                 4. Remove Task to Missed
-                5. Clear Lists
+                5. Export current List
+                6. Clear Lists
                                 
                 0. Clear list and exit program
                 Answer:\s""");
@@ -28,7 +29,8 @@ public class Menu{
             case "2" -> tool.addTask();
             case "3" -> tool.completeTask();
             case "4" -> tool.missTask();
-            case "5" -> {
+            case "5" -> tool.export();
+            case "6" -> {
                 clearMenu();
                 on1 = false;
             }
