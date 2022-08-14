@@ -2,7 +2,6 @@ public class Menu{
 
     Data data = new Data();
 
-    boolean on = false, on1 = false;
 
     String choose, chooseList;
 
@@ -23,26 +22,24 @@ public class Menu{
                 Answer:\s""");
     }
 
-    void menu() {
+    int menu() {
         switch (choose) {
             case "1" -> tool.printTask();
             case "2" -> tool.addTask();
             case "3" -> tool.completeTask();
             case "4" -> tool.missTask();
             case "5" -> tool.export();
-            case "6" -> {
-                clearMenu();
-                on1 = false;
-            }
+            case "6" -> clearMenu();
             case "0" -> {
                 tool.printTask();
-                on = false;
                 System.out.print("Shutting down...\n\n");
                 System.out.print("Press any button to exit program...");
                 data.input.nextLine();
+                return 1;
             }
             default -> System.out.print("Menu hasn't that item!!!\n\n");
         }
+        return 0;
     }
 
     void printListMenu() {
@@ -58,34 +55,39 @@ public class Menu{
                 Answer:\s""");
     }
 
-    void listMenu() {
+    int listMenu() {
         switch (chooseList) {
-            case "1" -> {on1 = false; tool.clearList(0);}
-            case "2" -> {on1 = false; tool.clearList(1);}
-            case "3" -> {on1 = false; tool.clearList(2);}
-            case "4" -> {on1 = false; tool.clearList(3);}
-            case "0" -> {on1 = false; System.out.print("Back to menu... \n\n");}
+            case "1" -> {tool.clearList(0); return 1;}
+            case "2" -> {tool.clearList(1); return 1;}
+            case "3" -> {tool.clearList(2); return 1;}
+            case "4" -> {tool.clearList(3); return 1;}
+            case "0" -> {System.out.print("Back to menu... \n\n"); return 1;}
             default -> System.out.print("Menu hasn't that item!!!\n\n");
+        }
+        return 0;
+    }
+
+    void clearMenu() {
+        while (true) {
+            printListMenu();
+            chooseList = data.input.nextLine();
+            System.out.println();
+            int x = listMenu();
+            if (x == 1){
+                return;
+            }
         }
     }
 
     void start() {
-        on = true;
-        while (on) {
+        while (true) {
             printMenu();
             choose = data.input.nextLine();
             System.out.println();
-            menu();
-        }
-    }
-
-    void clearMenu() {
-        on1 = true;
-        while (on1) {
-            printListMenu();
-            chooseList = data.input.nextLine();
-            System.out.println();
-            listMenu();
+            int x = menu();
+            if (x == 1){
+                return;
+            }
         }
     }
 

@@ -51,4 +51,8 @@ public class Data {
         return formatter.format(date);
     }
 
+    void clear (){
+        System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+    }
+
 }
